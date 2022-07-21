@@ -37,7 +37,7 @@ function renderProducts(data) {
             </td>
             <td class="text">${data[i].price} $</td>
             <td class="text">${data[i].screen}</td>
-            <td class="text" style="width: 15%;">
+            <td class="text">
                 ${data[i].backCamera}
             </td>
             <td class="text">${data[i].frontCamera}</td>
