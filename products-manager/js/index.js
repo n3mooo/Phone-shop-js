@@ -69,9 +69,6 @@ function renderProducts(data) {
 }
 
 function createProduct() {
-    var isValid = validateForm();
-    if (!isValid) return;
-
     var prodName = getEle("prodName").value;
     var prodPrice = getEle("prodPrice").value;
     var prodScreen = getEle("prodScreen").value;
@@ -152,9 +149,6 @@ function getProduct(id) {
 }
 
 function updateProduct() {
-    var isValid = validateForm();
-    if (!isValid) return;
-
     var prodId = getEle("productId").value;
     var prodName = getEle("prodName").value;
     var prodPrice = getEle("prodPrice").value;
@@ -196,49 +190,71 @@ function updateProduct() {
         });
 }
 
-// ---------------VALIDATION-----------------
-function validateForm() {
-    var isValid = true;
-
-    var prodName = getEle("prodName").value;
-    var prodPrice = getEle("prodPrice").value;
-    var prodScreen = getEle("prodScreen").value;
-    var prodBackCam = getEle("prodBackCam").value;
-    var prodFrontCam = getEle("prodFrontCam").value;
-    var prodImg = getEle("prodImg").value;
-    var prodDesc = getEle("prodDesc").value;
-    var prodType = getEle("prodType").value;
-
-    isValid &= checkRequired(prodName, "spanName");
-    isValid &=
-        checkRequired(prodPrice, "spanPrice") &&
-        checkNumber(prodPrice, "spanPrice");
-    isValid &= checkRequired(prodScreen, "spanScreen");
-    isValid &= checkRequired(prodBackCam, "spanBackCam");
-    isValid &= checkRequired(prodFrontCam, "spanFrontCam");
-    isValid &= checkRequired(prodImg, "spanImg");
-    isValid &= checkRequired(prodDesc, "spanDesc");
-    isValid &= checkRequired(prodType, "spanType");
-
-    return isValid;
-}
-
-function checkRequired(val, spanId) {
-    if (val.length > 0) {
-        document.getElementById(spanId).innerHTML = "";
-        return true;
+// ----------- Validation---------------------
+getEle("prodName").addEventListener("focusout", () => {
+    if (getEle("prodName").value.length > 0) {
+        getEle("spanName").innerHTML = "";
+    } else {
+        getEle("spanName").innerHTML = "* This field is required";
     }
-    document.getElementById(spanId).innerHTML = "* This field is required";
-    return false;
-}
+});
 
-function checkNumber(val, spanId) {
+getEle("prodPrice").addEventListener("focusout", () => {
     var letter = /^[0-9]+$/;
-    if (val.match(letter)) {
-        document.getElementById(spanId).innerHTML = "";
-        return true;
+    if (getEle("prodPrice").value.length === 0) {
+        getEle("spanPrice").innerHTML = "* This field is required";
+    } else if (!getEle("prodPrice").value.match(letter)) {
+        getEle("spanPrice").innerHTML =
+            "* Please enter the correct format score";
+    } else {
+        getEle("spanPrice").innerHTML = "";
     }
-    document.getElementById(spanId).innerHTML =
-        "* Please enter the correct format score";
-    return false;
-}
+});
+
+getEle("prodScreen").addEventListener("focusout", () => {
+    if (getEle("prodScreen").value.length > 0) {
+        getEle("spanScreen").innerHTML = "";
+    } else {
+        getEle("spanScreen").innerHTML = "* This field is required";
+    }
+});
+
+getEle("prodBackCam").addEventListener("focusout", () => {
+    if (getEle("prodBackCam").value.length > 0) {
+        getEle("spanBackCam").innerHTML = "";
+    } else {
+        getEle("spanBackCam").innerHTML = "* This field is required";
+    }
+});
+
+getEle("prodFrontCam").addEventListener("focusout", () => {
+    if (getEle("prodFrontCam").value.length > 0) {
+        getEle("spanFrontCam").innerHTML = "";
+    } else {
+        getEle("spanFrontCam").innerHTML = "* This field is required";
+    }
+});
+
+getEle("prodDesc").addEventListener("focusout", () => {
+    if (getEle("prodDesc").value.length > 0) {
+        getEle("spanDesc").innerHTML = "";
+    } else {
+        getEle("spanDesc").innerHTML = "* This field is required";
+    }
+});
+
+getEle("prodImg").addEventListener("focusout", () => {
+    if (getEle("prodImg").value.length > 0) {
+        getEle("spanImg").innerHTML = "";
+    } else {
+        getEle("spanImg").innerHTML = "* This field is required";
+    }
+});
+
+getEle("prodType").addEventListener("focusout", () => {
+    if (getEle("prodType").value.length > 0) {
+        getEle("spanType").innerHTML = "";
+    } else {
+        getEle("spanType").innerHTML = "* This field is required";
+    }
+});
