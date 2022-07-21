@@ -108,18 +108,21 @@ function createProduct() {
 }
 
 function deleteProduct(id) {
-    axios({
-        url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + id,
-        method: "DELETE",
-    })
-        .then(function (result) {
-            console.log(result.data);
-            alert("Delete Success");
-            getListProduct();
+    if (confirm("Are you sure you want to delete this product?")) {
+        axios({
+            url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + id,
+            method: "DELETE",
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (result) {
+                console.log(result.data);
+                alert("Delete Success");
+                getListProduct();
+            })
+            .catch(function (error) {
+                alert("Delete failed");
+                console.log(error);
+            });
+    }
 }
 
 function getProduct(id) {
@@ -162,11 +165,19 @@ function updateProduct() {
     var prodDesc = getEle("prodDesc").value;
     var prodType = getEle("prodType").value;
 
-    var product = new Product(prodName, prodPrice, prodScreen, prodBackCam, prodFrontCam, prodImg, prodDesc, prodType);
+    var product = new Product(
+        prodName,
+        prodPrice,
+        prodScreen,
+        prodBackCam,
+        prodFrontCam,
+        prodImg,
+        prodDesc,
+        prodType
+    );
 
     axios({
-        url:
-            "https://62caa3003e924a01285c6589.mockapi.io/products/" + prodId,
+        url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + prodId,
         method: "PUT",
         data: product,
     })
@@ -176,10 +187,11 @@ function updateProduct() {
             getEle("btnUpdate").style.display = "none";
             getEle("btnCloseModal").click();
 
-            alert("Cập nhật thành công");
+            alert("Update success");
             getListProduct();
         })
         .catch(function (error) {
+            alert("Update failed");
             console.log(error);
         });
 }
@@ -198,7 +210,9 @@ function validateForm() {
     var prodType = getEle("prodType").value;
 
     isValid &= checkRequired(prodName, "spanName");
-    isValid &= checkRequired(prodPrice, "spanPrice") && checkNumber(prodPrice, "spanPrice");
+    isValid &=
+        checkRequired(prodPrice, "spanPrice") &&
+        checkNumber(prodPrice, "spanPrice");
     isValid &= checkRequired(prodScreen, "spanScreen");
     isValid &= checkRequired(prodBackCam, "spanBackCam");
     isValid &= checkRequired(prodFrontCam, "spanFrontCam");
@@ -224,6 +238,7 @@ function checkNumber(val, spanId) {
         document.getElementById(spanId).innerHTML = "";
         return true;
     }
-    document.getElementById(spanId).innerHTML = "* Please enter the correct format score";
+    document.getElementById(spanId).innerHTML =
+        "* Please enter the correct format score";
     return false;
 }
