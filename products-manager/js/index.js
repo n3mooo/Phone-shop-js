@@ -2,6 +2,11 @@ function getEle(id) {
     return document.getElementById(id);
 }
 
+function resetEle() {
+    getEle("btnAdd").style.display = "block";
+    getEle("btnUpdate").style.display = "none";
+}
+
 function getListProduct() {
     axios({
         url: "https://62caa3003e924a01285c6589.mockapi.io/products",
@@ -97,9 +102,9 @@ function createProduct() {
             data: product,
         })
             .then((result) => {
-                console.log(result.data);
-                getListProduct();
+                getEle("btnReset").click();
                 getEle("btnCloseModal").click();
+                getListProduct();
             })
             .catch((error) => {
                 console.log(error);
@@ -114,8 +119,6 @@ function deleteProduct(id) {
             method: "DELETE",
         })
             .then(function (result) {
-                console.log(result.data);
-                alert("Delete Success");
                 getListProduct();
             })
             .catch(function (error) {
@@ -137,7 +140,7 @@ function getProduct(id) {
             getEle("prodName").value = result.data.name;
             getEle("prodPrice").value = result.data.price;
             getEle("prodScreen").value = result.data.screen;
-            getEle("prodBackCam").value.value = result.data.backCamera;
+            getEle("prodBackCam").value = result.data.backCamera;
             getEle("prodFrontCam").value = result.data.frontCamera;
             getEle("prodImg").value = result.data.img;
             getEle("prodDesc").value = result.data.desc;
@@ -188,7 +191,6 @@ function updateProduct() {
                 getEle("btnUpdate").style.display = "none";
                 getEle("btnCloseModal").click();
 
-                alert("Update success");
                 getListProduct();
             })
             .catch(function (error) {
