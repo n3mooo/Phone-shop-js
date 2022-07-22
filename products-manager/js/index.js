@@ -109,6 +109,8 @@ function createProduct() {
             .catch((error) => {
                 console.log(error);
             });
+    } else {
+        alert("Please check the product information again !!");
     }
 }
 
@@ -197,6 +199,8 @@ function updateProduct() {
                 alert("Update failed");
                 console.log(error);
             });
+    } else {
+        alert("Please check the product information again !!");
     }
 }
 
