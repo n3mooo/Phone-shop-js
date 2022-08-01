@@ -131,6 +131,7 @@ function deleteProduct(id) {
 }
 
 function getProduct(id) {
+    isValidate = [true, true, true, true, true, true, true, true];
     axios({
         url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + id,
         method: "GET",
@@ -181,9 +182,7 @@ function updateProduct() {
         );
 
         axios({
-            url:
-                "https://62caa3003e924a01285c6589.mockapi.io/products/" +
-                prodId,
+            url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + prodId,
             method: "PUT",
             data: product,
         })
@@ -223,8 +222,7 @@ getEle("prodPrice").addEventListener("focusout", () => {
         getEle("spanPrice").innerHTML = "* This field is required";
         isValidate[1] = false;
     } else if (!getEle("prodPrice").value.match(letter)) {
-        getEle("spanPrice").innerHTML =
-            "* Please enter the correct format score";
+        getEle("spanPrice").innerHTML = "* Please enter the correct format score";
         isValidate[1] = false;
     } else {
         getEle("spanPrice").innerHTML = "";
